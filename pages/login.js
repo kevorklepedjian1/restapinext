@@ -2,8 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 import {Link} from "next"
-import styles from "./styles.module.css";
-
+import styles from "./users/styles.module.css";
 function login() {
     const [data, setData] = useState({ username: "", password: "" });
 	const [error, setError] = useState("");
@@ -16,22 +15,16 @@ function login() {
 
     const handleSubmit = async (e) => {
 		e.preventDefault();
-		try {
-			const url = "http://localhost:4000/users/login";
+		
+			const url = "https://kevork.herokuapp.com/api/user/login";
 			const { data: res } = await axios.post(url, data);
 			localStorage.setItem("token", res.data.token);
 			setTokenkey(res.data.token)
             setDtusername(res.data.username)
-		} catch (error) {
-			if (
-				error.response &&
-				error.response.status >= 400 &&
-				error.response.status <= 500
-			) {
-				setError(error.response.data.message);
-			}
-		}
+	
 	};
+    
+console.log(error);
   return (
     <div className={styles.login_container}>
       
